@@ -1,0 +1,28 @@
+version: 'DockerComposeCalculadoraV1' 
+
+services:
+
+  # Servicio de mi aplicación 
+  calculadora-app:
+
+    # Utilizamos la imagen del DockerHub que cargamos con Git Actions
+    image: pabloagustinm/calculadora:uploadAuto 
+
+    # Mapeamos los puertos del contenedor para poder utilizar Localhost
+    ports:
+      - "8080:80"  
+
+    # Comprobamos la salud del contenedor    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"] # Utilizamos un Curl en Localhost para comprobar la salud
+      interval: 30s  # Comprueba la salud cada 30 segundo
+      timeout: 10s  # Espera 10 segundos a una respuesta
+      retries: 3  # Reintenta 3 veces la salud del contenedor. 
+    
+    # Limitamos los recursos del contenedor
+    # resources:
+    #   limits:
+    #     cpus: "1"
+    #     memory: 256M
+
+    
